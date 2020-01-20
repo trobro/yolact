@@ -509,9 +509,10 @@ class Yolact(nn.Module):
             # Broke in 1.3 (see issue #175), WeakScriptModuleProxy was turned into just ScriptModule.
             # Note that this might break with future pytorch updates, so let me know if it does
             is_script_conv = 'Script' in type(module).__name__ \
+                and '_constants_set' in module.__dict__ \
                 and all_in(module.__dict__['_constants_set'], conv_constants) \
                 and all_in(conv_constants, module.__dict__['_constants_set'])
-            
+
             is_conv_layer = isinstance(module, nn.Conv2d) or is_script_conv
             
             if is_conv_layer and module not in self.backbone.backbone_modules:
