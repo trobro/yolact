@@ -26,6 +26,7 @@ from pathlib import Path
 from collections import OrderedDict
 from PIL import Image
 
+import matplotlib
 import matplotlib.pyplot as plt
 import cv2
 
@@ -962,6 +963,7 @@ def evaluate(net:Yolact, dataset, train_mode=False):
             if args.display:
                 if it > 1:
                     print('Avg FPS: %.4f' % (1 / frame_times.get_avg()))
+                matplotlib.use('TkAgg')
                 plt.imshow(img_numpy)
                 plt.title(str(dataset.ids[image_idx]))
                 plt.show()
